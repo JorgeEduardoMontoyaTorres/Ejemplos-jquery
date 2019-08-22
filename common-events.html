@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Commmon events</title>
+</head>
+<body>
+    <h1>Common jQuery Events</h1>
+
+    <input id="something" type="text" placeholder="Write something...">
+
+    <button>Don´t click</button>
+    <button>Seriously, don't click here</button>
+    <button>Ok, click me!</button>
+
+    <h2>On() example</h2>
+    <input id="add" type="text" placeholder="Add something">
+    <ul id="list">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			crossorigin="anonymous">
+    </script>
+
+    <script>
+        $('button').click(function(event)   {
+            console.log($(this).text()); }
+        );
+
+        $('#something').keypress(function(event)  {
+            console.log('You tiped: '+event.key);
+            if(event.which === 13){
+                alert('You can go on');
+            }
+        });
+
+        $('#add').on('keypress', function(event){
+            if(event.which === 13){
+                $('ul').append('<li>'+$(this).val()+'</li>')
+                console.log('Adding '+$(this).val()) //Getter
+                $(this).val(''); //Setter
+            }
+        });
+
+        //Solo funciona con elementos ya existentes.
+        //$('li').on('click', function(event){
+        //    console.log($(this).text());
+        //});
+
+        //Con delegados para que funcione con elementos dinamicos.
+        $('ul').on('click', 'li', function(event){
+            console.log($(this).text());
+        });
+
+        //Al pasar mouse pone color rosa y al dar click enter del mouse cambia el color del boton a rosa.
+        $('button').on('mouseenter', function(){
+            $(this).css('background-color', 'pink');
+        });
+
+        //al soltar el enter del mouse cambia el color del boton a blanco.
+        $('button').on('mouseout', function(){
+            $(this).css('background-color', 'white');
+        });
+    </script>
+</body>
+</html>

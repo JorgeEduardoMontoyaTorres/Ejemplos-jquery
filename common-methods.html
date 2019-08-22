@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery</title>
+
+    <style>
+        .correct{
+            color: green;
+        }
+
+        .wrong{
+            color: red;
+        }
+
+        .done{
+            color: gray;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>Common jQuery methods</h1>
+    <ul id="commonmethods">
+        <li>val()</li>
+        <li>text()</li>
+        <li>attr()</li>
+        <li>html()</li>
+        <li>addClass()</li>
+        <li>removeClass()</li>
+        <li>toggleClass()</li>
+    </ul>
+
+    <input type="text" name="text" id="text" placeholder="Write something">
+    <img src="./uaslp_inge.png" width="100">
+
+    <h2>Tasks list</h2>
+    <ul id="tasks">
+        <li>Go for a run</li>
+        <li>Make homework</li>
+        <li>Shop notebook</li>
+    </ul>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			crossorigin="anonymous"></script>
+    
+    <script>
+        $('h1').text('you have been hacked!');
+
+        var current = $('#commonmethods').html();
+        $('#commonmethods').html(current + "<li> New element </li>");
+
+        //Get the current value from the input
+        current = $('input').val();
+        console.log(current);
+
+        //Set the input value
+        $('input').val("Bye bye!");
+
+        //Get the current width
+        current = $('img').attr('width');
+        console.log(current);
+
+        //change the logo image
+        $('img').attr('src', 'logo_uaslp.jpg')
+
+        //Change the image's width
+        $('img').attr('width', '50');
+
+        //Mark all tasks as correct
+        $('#tasks').addClass('correct')
+
+        //Toggle all tasks as wrong
+        $('#tasks').toggleClass('wrong')
+        //Toggle all tasks as wrong again
+        $('#tasks').toggleClass('wrong')
+
+        //Mark the first task as done
+        $('#tasks li:first').addClass('done')
+    </script>
+
+</body>
+</html>
