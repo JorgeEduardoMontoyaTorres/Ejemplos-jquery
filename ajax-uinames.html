@@ -7,8 +7,8 @@
     <title>Ajax UInames example</title>
 </head>
 <body>
-    <h1>UInames examples</h1>
-    <h2>Users</h2>
+    <h1>UInames example</h1>
+    <h2>User List</h2>
     <div>
         <label>Male</label>
         <input type="radio" name="gender" id="male">
@@ -17,15 +17,75 @@
         <label>Random</label>
         <input type="radio" name="gender" id="random">
     </div>
-    <input type="text" placeholder="How many user?">
+    <div>
+        <label for="region">Region</label>
+        <select name="region" id="region">
+            <option>None</option>
+            <option>France</option>
+            <option>Russia</option>
+            <option>Mexico</option>
+            <option>Germany</option>
+            <option>India</option>
+            <option>Random</option>
+        </select>
+    </div>
 
+    <div>
+        <label>Extra Data</label>
+        <input type="checkbox" id="extra">
+    </div>
+    <input type="number" placeholder="How many users?" id="amount">
+    <ul class="user-list">
+
+    </ul>
+    
     <script>
-        var gender = "";
-        $('input[type="radio"]').on('click', function(){
-            gender = $(this).attr('id');
-        });
-
         
+        var gender = "";
+        $('input[type=radio]').on('click', function(){
+            gender = $(this).attr('id');
+        })
+        $('#amount').on('keypress', function()
+        {
+            if(event.which === 13)
+            {
+                $('ul').empty();
+                var number = $('#amount').val();
+                var region = $('#region').val();
+                var urlString = "https://uinames.com/api/?amount="+ number 
+                    + "&gender=" + gender
+                    + "&region=" + region;
+                var extra = $('#extra').prop('checked');
+                if(extra)
+                {
+                    urlString += '&ext';
+                }
+                jQuery.ajax(
+                {
+                    method: "GET",
+                    url: urlString,
+                    success: function(data) {
+                                if(number == 1)
+                                    $('.user-list').append('<li>'+ data.name+ ' ' + data.surname +'</li>')
+                                else
+                                {
+                                    var i, user;
+                                    for (i = 0; i < data.length; i++)
+                                    {
+                                        user = data[i];
+                                        $('.user-list').append('<li>'+ user.name+ ' ' + user.surname +'</li>')
+                                    }
+                                }
+                               
+                            },
+                    error: function(data){
+                            alert(data.responseJSON.error);
+                        }
+                })
+                $('#amount').val('');
+            }
+        })    
+    
     </script>
 </body>
 </html>
